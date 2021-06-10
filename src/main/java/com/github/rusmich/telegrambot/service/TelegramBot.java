@@ -42,6 +42,7 @@ public class TelegramBot extends TelegramLongPollingBot {
             Message message = update.getMessage();
             Long chatId = message.getChatId();
             String userName = message.getFrom().getUserName();
+
             if (message.getText().equals("дошик")) {
 
                 sendMessage("Таймер активирован", chatId);
@@ -52,27 +53,7 @@ public class TelegramBot extends TelegramLongPollingBot {
                 }
                 sendMessage("Дошик заварился " + "@" + userName, chatId);
             } else if (message.getText().equals("монетка") || message.getText().equals("подкинуть")) {
-                int numberChoose = (int) (random() * 6);
-                switch (numberChoose) {
-                    case 1:
-                        sendMessage("Вам выпала решка", chatId);
-                        break;
-                    case 2:
-                        sendMessage("Вам выпал орёл", chatId);
-                        break;
-                    case 3:
-                        sendMessage("Монета стала на ребро", chatId);
-                        break;
-                    case 4:
-                        sendMessage("Монетка взмыла вверх и улетела", chatId);
-                        break;
-                    case 5:
-                        sendMessage("Монета испарилась", chatId);
-                        break;
-                    default:
-                        sendMessage("Монета потерялась", chatId);
-                        break;
-                }
+                coinRandom(update);
             }
         }
     }
@@ -93,6 +74,31 @@ public class TelegramBot extends TelegramLongPollingBot {
             objectMapper.writeValue(new File("src/test/resources/update.json"), update);
         } catch (IOException e) {
             e.printStackTrace();
+        }
+    }
+    public void coinRandom(Update update) { //метод по генерации выпадения монетки
+        Message message = update.getMessage();
+        Long chatId = message.getChatId();
+        int numberChoose = (int) (random() * 6);
+        switch (numberChoose) {
+            case 1:
+                sendMessage("Вам выпала решка", chatId);
+                break;
+            case 2:
+                sendMessage("Вам выпал орёл", chatId);
+                break;
+            case 3:
+                sendMessage("Монета стала на ребро", chatId);
+                break;
+            case 4:
+                sendMessage("Монетка взмыла вверх и улетела", chatId);
+                break;
+            case 5:
+                sendMessage("Монета испарилась", chatId);
+                break;
+            default:
+                sendMessage("Монета потерялась", chatId);
+                break;
         }
     }
 
