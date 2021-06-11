@@ -11,10 +11,9 @@ import org.telegram.telegrambots.meta.api.objects.Message;
 import org.telegram.telegrambots.meta.api.objects.Update;
 import org.telegram.telegrambots.meta.exceptions.TelegramApiException;
 
+import javax.swing.*;
 import java.io.File;
 import java.io.IOException;
-
-import static java.lang.Math.random;
 
 @Component
 @PropertySource("application.properties")
@@ -33,6 +32,8 @@ public class TelegramBot extends TelegramLongPollingBot {
     @Override
     //Определить какое поведение нужно совершить когда бот получает сообщение
     public void onUpdateReceived(Update update) {
+
+        coinRandom(update);
         executeUpdate(update);
         //saveJson(update);
     }
@@ -42,19 +43,21 @@ public class TelegramBot extends TelegramLongPollingBot {
             Message message = update.getMessage();
             Long chatId = message.getChatId();
             String userName = message.getFrom().getUserName();
+           
 
-            if (message.getText().equals("дошик")) {
+            if (message.getText().equalsIgnoreCase("дошик")) {
 
                 sendMessage("Таймер активирован", chatId);
                 try {
-                    Thread.sleep(20000);   //тестовое время 20 секунд, проблема способа, в том что нету мультипоточности
+
+                   Thread.sleep(20000);   //тестовое время 20 секунд, проблема способа, в том что нету мультипоточности
+
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                 }
                 sendMessage("Дошик заварился " + "@" + userName, chatId);
-            } else if (message.getText().equals("монетка") || message.getText().equals("подкинуть")) {
-                coinRandom(update);
             }
+
         }
     }
 
@@ -78,10 +81,16 @@ public class TelegramBot extends TelegramLongPollingBot {
     }
 
     public void coinRandom(Update update) { //метод по генерации выпадения монетки
-        Message message = update.getMessage();
-        Long chatId = message.getChatId();
-        RandomCoin randomCoin = new RandomCoin();
-        sendMessage(randomCoin.getAnswer(), chatId);
+
+        if (update != null) {
+            Message message = update.getMessage();
+            Long chatId = message.getChatId();
+            RandomCoin randomCoin = new RandomCoin();
+            if (message.getText().equalsIgnoreCase("монетка") || message.getText().equalsIgnoreCase("подкинуть")) {
+                 sendMessage(randomCoin.getAnswer(), chatId);
+
+            }
+        }
 
     }
 
