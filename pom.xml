@@ -13,18 +13,9 @@
 	<version>0.0.1-SNAPSHOT</version>
 	<name>telegrambot</name>
 	<description>Team Demo bot for cooking</description>
-
 	<properties>
-		<!-- Code analysis server auth -->
-		<sonar.projectKey>shade2903_java-free-stream-5</sonar.projectKey>
-		<sonar.organization>shade2903</sonar.organization>
-		<sonar.host.url>https://sonarcloud.io</sonar.host.url>
-		<!--suppress UnresolvedMavenProperty -->
-		<sonar.login>${sonar.token}</sonar.login>
-		<!-- Java version to use on project -->
 		<java.version>15</java.version>
 	</properties>
-
 	<dependencies>
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
@@ -54,35 +45,6 @@
 			<version>4.1.2</version>
 		</dependency>
 
-		<!-- Enables logging-->
-		<dependency>
-			<groupId>org.slf4j</groupId>
-			<artifactId>slf4j-log4j12</artifactId>
-			<version>2.0.0-alpha1</version>
-		</dependency>
-
-		<!-- Performs Tests -->
-		<dependency>
-			<groupId>org.junit.vintage</groupId>
-			<artifactId>junit-vintage-engine</artifactId>
-			<version>5.7.0</version>
-		</dependency>
-
-		<!-- Plugin for Tests Analysis -->
-		<dependency>
-			<groupId>org.jacoco</groupId>
-			<artifactId>jacoco-maven-plugin</artifactId>
-			<version>0.8.7</version>
-			<scope>test</scope>
-		</dependency>
-
-		<!-- Allows to use variables in external properties file -->
-		<dependency>
-			<groupId>org.codehaus.mojo</groupId>
-			<artifactId>properties-maven-plugin</artifactId>
-			<version>1.0.0</version>
-		</dependency>
-
 	</dependencies>
 
 	<build>
@@ -91,34 +53,6 @@
 				<groupId>org.springframework.boot</groupId>
 				<artifactId>spring-boot-maven-plugin</artifactId>
 			</plugin>
-			<!-- Store security sensitive properties separately  -->
-			<plugin>
-				<groupId>org.codehaus.mojo</groupId>
-				<artifactId>properties-maven-plugin</artifactId>
-				<version>1.0.0</version>
-				<executions>
-					<execution>
-						<phase>initialize</phase>
-						<goals>
-							<goal>read-project-properties</goal>
-						</goals>
-						<configuration>
-							<files>
-								<file>${basedir}/src/main/resources/credential.properties</file>
-							</files>
-						</configuration>
-					</execution>
-				</executions>
-			</plugin>
-			<plugin>
-				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-compiler-plugin</artifactId>
-				<configuration>
-					<source>13</source>
-					<target>13</target>
-				</configuration>
-			</plugin>
-
 		</plugins>
 	</build>
 

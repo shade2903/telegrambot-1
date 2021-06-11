@@ -3,7 +3,7 @@ package com.github.rusmich.telegrambot.service;
 import java.util.List;
 import java.util.Random;
 
-public class RandomCoin extends Potok {
+public class RandomCoin  {
     Random value = new Random();
     private int i = value.nextInt(7);
 
