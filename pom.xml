@@ -16,8 +16,8 @@
 
 	<properties>
 		<!-- Code analysis server auth -->
-		<sonar.projectKey>shade2903_java-free-stream-5</sonar.projectKey>
-		<sonar.organization>shade2903</sonar.organization>
+		<sonar.projectKey>RusMich_telegrambot</sonar.projectKey>
+		<sonar.organization>rusmich-1</sonar.organization>
 		<sonar.host.url>https://sonarcloud.io</sonar.host.url>
 		<!--suppress UnresolvedMavenProperty -->
 		<sonar.login>${sonar.token}</sonar.login>
