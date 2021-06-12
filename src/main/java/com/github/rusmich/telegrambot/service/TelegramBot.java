@@ -31,8 +31,11 @@ public class TelegramBot extends TelegramLongPollingBot {
     @Override
     //Определить какое поведение нужно совершить когда бот получает сообщение
     public void onUpdateReceived(Update update) {
-        executeUpdate(update);
-        //saveJson(update);
+        new Thread(() -> {
+            executeUpdate(update);
+        }).start();
+
+        coinRandom(update);
     }
 
     public void executeUpdate(Update update) {
@@ -44,7 +47,7 @@ public class TelegramBot extends TelegramLongPollingBot {
             String stroka = String.valueOf(message.getText().trim().toLowerCase().replaceAll("[\\s]{2,}", " "));
             String[] words = stroka.split(" ");
             if (words.length == 1) {
-                if (message.getText().equals("дошик")) {
+                if (message.getText().equalsIgnoreCase("дошик")) {
                     sendMessage("Таймер активирован", chatId);
                     try {
                         Thread.sleep(20000L);   //тестовое время 20 секунд, проблема способа, в том что нету мультипоточности
@@ -52,17 +55,16 @@ public class TelegramBot extends TelegramLongPollingBot {
                         e.printStackTrace();
                     }
                     sendMessage("Дошик заварился " + "@" + userName, chatId);
-                } else if (message.getText().equals("монетка") || message.getText().equals("подкинуть")) {
-                    coinRandom(update);
                 }
             }
             if (words.length > 1) {
                 String firstWords = words[0];
                 String secondSymbol = words[1];
                 String trueSecondSymbol = secondSymbol.replaceAll("[^0-9.\\s]", "");
-                if (firstWords.equals("таймер")) {
+                if (firstWords.equalsIgnoreCase("таймер")) {
                     long userTimer = Long.parseLong(trueSecondSymbol);
-                    if (words.length == 2 || words.length == 3 && words[2].equals("сек") || words[2].equals("секунд") || words[2].equals("секунды")) {
+                    if (words.length == 2 || words.length == 3 && words[2].equalsIgnoreCase("сек") ||
+                            words[2].equalsIgnoreCase("секунд") || words[2].equalsIgnoreCase("секунды")) {
                         long time = userTimer * 1000L;
                         sendMessage("Таймер установлен на " + userTimer + " секунд", chatId);
                         try {
@@ -131,10 +133,16 @@ public class TelegramBot extends TelegramLongPollingBot {
     }*/
 
     public void coinRandom(Update update) { //метод по генерации выпадения монетки
-        Message message = update.getMessage();
-        Long chatId = message.getChatId();
-        RandomCoin randomCoin = new RandomCoin();
-        sendMessage(randomCoin.getAnswer(), chatId);
+        if (update != null) {
+            Message message = update.getMessage();
+            Long chatId = message.getChatId();
+            RandomCoin randomCoin = new RandomCoin();
+            if (message.getText().equalsIgnoreCase("монетка") || message.getText().
+                    equalsIgnoreCase("подкинуть")) {
+                sendMessage(randomCoin.getAnswer(), chatId);
+
+            }
+        }
 
     }
 
