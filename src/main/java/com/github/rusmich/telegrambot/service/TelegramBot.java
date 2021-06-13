@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.PropertySource;
 import org.springframework.stereotype.Component;
 import org.telegram.telegrambots.bots.TelegramLongPollingBot;
+import org.telegram.telegrambots.meta.api.methods.send.SendLocation;
 import org.telegram.telegrambots.meta.api.methods.send.SendMessage;
 import org.telegram.telegrambots.meta.api.objects.Message;
 import org.telegram.telegrambots.meta.api.objects.Update;
@@ -56,6 +57,8 @@ public class TelegramBot extends TelegramLongPollingBot {
                     }
                     sendMessage("Дошик заварился " + "@" + userName, chatId);
                 }
+            }else if (words[0].equals("куда") && words[1].equals("поехать") && words[2].equals("отдохнуть")) {
+                sendLocation(chatId);
             }
             if (words.length > 1) {
                 String firstWords = words[0];
@@ -107,11 +110,24 @@ public class TelegramBot extends TelegramLongPollingBot {
                             finEda.getAnswer() + " " + fineda.trim() + " " + posEda.getAnswer(), chatId);
 
                 }
-
             }
         }
     }
 
+    public synchronized void sendLocation(Long chatId) {
+        CoordinteGen coordinteGen = new CoordinteGen();
+        Float latitude = Float.parseFloat(coordinteGen.getLat());
+        Float longitude = Float.parseFloat(coordinteGen.getLon());
+        SendLocation sendLocation = new SendLocation();
+        sendLocation.setLatitude(latitude);
+        sendLocation.setLongitude(longitude);
+        sendLocation.setChatId(chatId);
+        try {
+            execute(sendLocation);
+        } catch (TelegramApiException e) {
+            e.printStackTrace();
+        }
+    }
 
     public synchronized void sendMessage(String text, Long chatId) {
         SendMessage sendMessage = new SendMessage();
