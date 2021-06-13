@@ -66,8 +66,8 @@ public class TelegramBot extends TelegramLongPollingBot {
                 String trueSecondSymbol = secondSymbol.replaceAll("[^0-9.\\s]", "");
                 if (firstWords.equalsIgnoreCase("таймер")) {
                     long userTimer = Long.parseLong(trueSecondSymbol);
-                    if (words.length == 2 || words.length == 3 && words[2].equalsIgnoreCase("сек") ||
-                            words[2].equalsIgnoreCase("секунд") || words[2].equalsIgnoreCase("секунды")) {
+                    if (words.length == 2 || words.length == 3 && words[2].equals("сек") ||
+                            words[2].equalsIgnoreCase("секунд") || words[2].equals("секунды")) {
                         long time = userTimer * 1000L;
                         sendMessage("Таймер установлен на " + userTimer + " секунд", chatId);
                         try {
