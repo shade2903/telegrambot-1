@@ -108,10 +108,10 @@ public class TelegramBot extends TelegramLongPollingBot {
                                 }
                                 sendMessage("@" + userName + " Таймер на " + userTimer + " секунд окончен", chatId);
                             }
-                            //Склонение секунд.
                         }
                     } else if (words.length == 3 && words[2].equals("мин") || words[2].equals("минут") || words[2].equals("минуты")) {
                         long time = userTimer * 600_00L;
+                        //склонение минут
                             if(Integer.parseInt(new String(words[1].toCharArray())) == 1){
                                 sendMessage("Таймер установлен на " + userTimer + " минуту", chatId);
                                 try {
