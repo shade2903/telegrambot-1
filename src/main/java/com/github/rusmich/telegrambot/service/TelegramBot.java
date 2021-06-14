@@ -29,6 +29,8 @@ public class TelegramBot extends TelegramLongPollingBot {
     ObjectMapper objectMapper;
     @Autowired
     MessageService messageService;
+    @Autowired
+    TimerService timerService;
 
     @Override
     //Определить какое поведение нужно совершить когда бот получает сообщение
@@ -62,35 +64,10 @@ public class TelegramBot extends TelegramLongPollingBot {
             } else if (words[0].equals("куда") && words[1].equals("поехать") && words[2].equals("отдохнуть")) {
                 sendLocation(chatId);
             }
-            if (words.length > 1) {
-                String firstWords = words[0];
-                String secondSymbol = words[1];
-                String trueSecondSymbol = secondSymbol.replaceAll("[^0-9.\\s]", "");
-
-                if (firstWords.equalsIgnoreCase("таймер")) {
-                    long userTimer = Long.parseLong(trueSecondSymbol);
-                    if (words.length == 2 || words.length == 3 && words[2].equals("сек") ||
-                            words[2].equalsIgnoreCase("секунд") || words[2].equals("секунды")) {
-                        long time = userTimer * 1000L;
-                        sendMessage("Таймер установлен на " + userTimer + " секунд", chatId);
-                        try {
-                            Thread.sleep(time);   //тестовое время 20 секунд, проблема способа, в том что нету мультипоточности
-                        } catch (InterruptedException e) {
-                            e.printStackTrace();
-                        }
-                        sendMessage("@" + userName + " Таймер на " + userTimer + " секунд окончен", chatId);
-                    } else if (words.length == 3 && words[2].equals("мин") || words[2].equals("минут") || words[2].equals("минуты")) {
-                        long time = userTimer * 600_00L;
-                        sendMessage("Таймер установлен на " + userTimer + " минут", chatId);
-                        try {
-                            Thread.sleep(time);   //тестовое время 20 секунд, проблема способа, в том что нету мультипоточности
-                        } catch (InterruptedException e) {
-                            e.printStackTrace();
-                        }
-                        sendMessage("@" + userName + " Таймер на " + userTimer + " минут окончен", chatId);
-                    }
-                }
-            }
+          
+            //метод по таймеру и склонению слов
+            timerService.timerCorrectWords(words, chatId, userName);
+              
             if (words.length > 3) {
                 if (words[0].equals("что") && words[1].equals("приготовить") && words[2].equals("из")) {
                     BeginEda finEda = new BeginEda();
