@@ -5,8 +5,9 @@ public class AdjectiveConvertTest {
 
     public static void main(String[] args)
     {
-        String word = "";
+        String word = "Калина";
 
         System.out.println(AdjectiveConvert.stem(word));
+        System.out.println(OOnEndConvert.stem(word));
     }
 }

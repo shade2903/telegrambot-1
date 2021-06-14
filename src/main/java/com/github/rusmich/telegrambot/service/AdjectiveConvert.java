@@ -134,9 +134,9 @@ public class AdjectiveConvert {
                     || str4.equals("ас") || str4.equals("ус") || str4.equals("рб") || str4.equals("их")
                     || str4.equals("ст") || str4.equals("уп") || str4.equals("шк") || str4.equals("ан") //питаниевый
                     || str4.equals("ос") || str4.equals("нт") || str4.equals("ох") || str4.equals("ыш")
-                    || str4.equals("ад") || str4.equals("гл") || str4.equals("от")
+                    || str4.equals("ад") || str4.equals("гл") || str4.equals("от") || str4.equals("рт")
                     || str4.equals("пш") || str4.equals("об") && !word.equals("звероб") || word.equals("гранат")
-                    || str4.equals("ис") || str4.equals("ех") || str4.equals("кт")
+                    || str4.equals("ис") || str4.equals("ех") || str4.equals("кт") || str4.equals("ка")
                     || str4.equals("сл") && !word.equals("черносл")) {
                 word = word + "овый";
             } else if (str4.equals("га")) {
