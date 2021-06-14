@@ -5,7 +5,6 @@ import java.util.Random;
 //Класс для создания последнего слова в генерируемом предложении
 public class EndEda {
     Random value = new Random();
-    private int i = value.nextInt(6);
 
     public List<String> getList() {
         return list;
@@ -19,6 +18,7 @@ public class EndEda {
             "деликатес",
             "гуляш");
 
+    private int i = value.nextInt(list.size());
 
     public String getAnswer() {
         return list.get(i);

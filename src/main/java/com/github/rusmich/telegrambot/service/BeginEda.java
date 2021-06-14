@@ -4,7 +4,6 @@ import java.util.Random;
 //Класс для создания первого слова в генерируемом предложении
 public class BeginEda {
     Random value = new Random();
-    private int i = value.nextInt(5);
 
     public List<String> getList() {
         return list;
@@ -16,7 +15,7 @@ public class BeginEda {
             "Вареный",
             "Взбитый в блендере",
             "Вкрутую свареный");
-
+    private int i = value.nextInt(list.size());
 
     public String getAnswer() {
         return list.get(i);
