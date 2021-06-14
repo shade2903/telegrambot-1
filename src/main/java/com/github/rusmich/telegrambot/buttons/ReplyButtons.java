@@ -19,6 +19,7 @@ public class ReplyButtons {
 
         keyboardFirstRow.add("монетка");
         keyboardFirstRow.add("дошик");
+        keyboardFirstRow.add("Куда поехать отдохнуть");
 
         keyboard.add(keyboardFirstRow);
         keyboardMarkup.setKeyboard(keyboard);
