@@ -59,7 +59,7 @@ public class TelegramBot extends TelegramLongPollingBot {
                     }
                     sendMessage("Дошик заварился " + "@" + userName, chatId);
                 }
-            }else if (words[0].equals("куда") && words[1].equals("поехать") && words[2].equals("отдохнуть")) {
+            } else if (words[0].equals("куда") && words[1].equals("поехать") && words[2].equals("отдохнуть")) {
                 sendLocation(chatId);
             }
             if (words.length > 1) {
@@ -93,24 +93,32 @@ public class TelegramBot extends TelegramLongPollingBot {
             }
             if (words.length > 3) {
                 if (words[0].equals("что") && words[1].equals("приготовить") && words[2].equals("из")) {
-                    Dictionary firstSlovo = new Hashtable();//словарь первых слов
-                    Dictionary latterSlovo = new Hashtable();//словарь последующих слов
-                    //словари не плохо было бы вынести куда либо
                     BeginEda finEda = new BeginEda();
                     EndEda posEda = new EndEda();
                     String[] eda = words;
-                    firstSlovo.put("моркови", "морковно");
-                    firstSlovo.put("воды", "водно");
-                    latterSlovo.put("моркови", "морковный");
-                    latterSlovo.put("воды", "водный");
-                    String neweda = "";
-                    //начинаем анализ с 4 слово
+                    String newEda = "";
+                    String FinNewEda = "";
+
                     for (int i = 3; i < eda.length; i++) {
-                        neweda += latterSlovo.get(eda[i]) + " ";
+                        String clearwords = eda[i];
+                        if (clearwords.length() > 2) {
+                            newEda += clearwords + " ";
+                        }
                     }
-                    String fineda = (firstSlovo.get(eda[3]) + "-" + neweda).replace("null", "");
+                    newEda = newEda.replaceAll("[,.]", "");
+                    String[] finalEda = newEda.split(" ");
+                    for (int i = 0; i < finalEda.length; i++) {
+                        if (i % 2 == 0 && i != finalEda.length - 1) {
+                            FinNewEda += OOnEndConvert.stem(finalEda[i]) + "-";
+                        } else {
+                            FinNewEda += AdjectiveConvert.stem(finalEda[i]) + " ";
+                        }
+                    }
+
+
+                    String finStrEda = FinNewEda;
                     sendMessage("Из этих ингридиентов ты можешь приготовить замечательный: " +
-                            finEda.getAnswer() + " " + fineda.trim() + " " + posEda.getAnswer(), chatId);
+                            finEda.getAnswer() + " " + finStrEda.trim() + " " + posEda.getAnswer(), chatId);
 
                 }
 

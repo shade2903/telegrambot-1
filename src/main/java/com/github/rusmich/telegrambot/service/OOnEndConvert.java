@@ -82,7 +82,8 @@ public class OOnEndConvert {
             } else if (str4.equals("ин") || str4.equals("чк") || str4.equals("ьн") || str4.equals("ул") || str4.equals("ур")
                     || str4.equals("ех") || str4.equals("ат") || str4.equals("юм") || str4.equals("тн") || str4.equals("бл")
                     || str4.equals("ас") || str4.equals("ск") || str4.equals("гл") || str4.equals("от") || str4.equals("ер")
-                    || str4.equals("цк") || str4.equals("их") || str4.equals("ев") || str4.equals("йк") || str4.equals("рг")) {
+                    || str4.equals("цк") || str4.equals("их") || str4.equals("ев") || str4.equals("йк") || str4.equals("тв")
+                    || str4.equals("рг") || str4.equals("ес")) {
                 word = word + "о";
             } else if (str4.equals("нк") && !word.equals("манк") || str4.equals("вк") || str4.equals("шк")) {
                 word = removeLastCharOne(word);
@@ -129,7 +130,8 @@ public class OOnEndConvert {
                 word = "луково";
             } else if (str4.equals("яс")) {
                 word = word + "ной";
-            } else if (str4.equals("иц") || str4.equals("ич") || str4.equals("зд") || str4.equals("рш")) {
+            } else if (str4.equals("иц") || str4.equals("ич") || str4.equals("зд") || str4.equals("рш")
+                    || str4.equals("ыш")) {
                 word = word + "е";
             } else if (str4.equals("ст") || str4.equals("ис") || str4.equals("йв") || str4.equals("пш")
                     || str4.equals("об") || str4.equals("ох") || str4.equals("ут") || str4.equals("рт")
