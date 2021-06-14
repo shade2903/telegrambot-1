@@ -6,11 +6,13 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.PropertySource;
 import org.springframework.stereotype.Component;
 import org.telegram.telegrambots.bots.TelegramLongPollingBot;
+import org.telegram.telegrambots.meta.api.methods.send.SendLocation;
 import org.telegram.telegrambots.meta.api.methods.send.SendMessage;
 import org.telegram.telegrambots.meta.api.objects.Message;
 import org.telegram.telegrambots.meta.api.objects.Update;
 import org.telegram.telegrambots.meta.exceptions.TelegramApiException;
 
+import java.nio.charset.StandardCharsets;
 import java.util.Dictionary;
 import java.util.Hashtable;
 
@@ -48,6 +50,7 @@ public class TelegramBot extends TelegramLongPollingBot {
             //делаем поступающее сообщение стрингой, и убираем в начале и конце пробелы и переводим в нижний регистр и убираем двойные пробелы
             String stroka = String.valueOf(message.getText().trim().toLowerCase().replaceAll("[\\s]{2,}", " "));
             String[] words = stroka.split(" ");
+
             if (words.length == 1) {
                 if (message.getText().equalsIgnoreCase("дошик")) {
                     sendMessage("Таймер активирован", chatId);
@@ -58,30 +61,41 @@ public class TelegramBot extends TelegramLongPollingBot {
                     }
                     sendMessage("Дошик заварился " + "@" + userName, chatId);
                 }
+            } else if (words[0].equals("куда") && words[1].equals("поехать") && words[2].equals("отдохнуть")) {
+                sendLocation(chatId);
             }
+          
             //метод по таймеру и склонению слов
             timerService.timerCorrectWords(words, chatId, userName);
-
+              
             if (words.length > 3) {
                 if (words[0].equals("что") && words[1].equals("приготовить") && words[2].equals("из")) {
-                    Dictionary firstSlovo = new Hashtable();//словарь первых слов
-                    Dictionary latterSlovo = new Hashtable();//словарь последующих слов
-                    //словари не плохо было бы вынести куда либо
                     BeginEda finEda = new BeginEda();
                     EndEda posEda = new EndEda();
                     String[] eda = words;
-                    firstSlovo.put("моркови", "морковно");
-                    firstSlovo.put("воды", "водно");
-                    latterSlovo.put("моркови", "морковный");
-                    latterSlovo.put("воды", "водный");
-                    String neweda = "";
-                    //начинаем анализ с 4 слово
+                    String newEda = "";
+                    String FinNewEda = "";
+
                     for (int i = 3; i < eda.length; i++) {
-                        neweda += latterSlovo.get(eda[i]) + " ";
+                        String clearwords = eda[i];
+                        if (clearwords.length() > 2) {
+                            newEda += clearwords + " ";
+                        }
                     }
-                    String fineda = (firstSlovo.get(eda[3]) + "-" + neweda).replace("null", "");
+                    newEda = newEda.replaceAll("[,.]", "");
+                    String[] finalEda = newEda.split(" ");
+                    for (int i = 0; i < finalEda.length; i++) {
+                        if (i % 2 == 0 && i != finalEda.length - 1) {
+                            FinNewEda += OOnEndConvert.stem(finalEda[i]) + "-";
+                        } else {
+                            FinNewEda += AdjectiveConvert.stem(finalEda[i]) + " ";
+                        }
+                    }
+
+
+                    String finStrEda = FinNewEda;
                     sendMessage("Из этих ингридиентов ты можешь приготовить замечательный: " +
-                            finEda.getAnswer() + " " + fineda.trim() + " " + posEda.getAnswer(), chatId);
+                            finEda.getAnswer() + " " + finStrEda.trim() + " " + posEda.getAnswer(), chatId);
 
                 }
 
@@ -89,6 +103,20 @@ public class TelegramBot extends TelegramLongPollingBot {
         }
     }
 
+    public synchronized void sendLocation(Long chatId) {
+        CoordinteGen coordinteGen = new CoordinteGen();
+        Float latitude = Float.parseFloat(coordinteGen.getLat());
+        Float longitude = Float.parseFloat(coordinteGen.getLon());
+        SendLocation sendLocation = new SendLocation();
+        sendLocation.setLatitude(latitude);
+        sendLocation.setLongitude(longitude);
+        sendLocation.setChatId(chatId);
+        try {
+            execute(sendLocation);
+        } catch (TelegramApiException e) {
+            e.printStackTrace();
+        }
+    }
 
     public synchronized void sendMessage(String text, Long chatId) {
         SendMessage sendMessage = new SendMessage();
