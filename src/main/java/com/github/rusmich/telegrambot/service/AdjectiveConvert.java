@@ -100,7 +100,8 @@ public class AdjectiveConvert {
                 word = removeLastCharOne(word);
                 word = word + "ный";
             } else if (str4.equals("ир") || str4.equals("ыр") || str4.equals("ар")
-                    || str4.equals("уз") || str4.equals("ер") || str4.equals("ын")) {
+                    || str4.equals("уз") || str4.equals("ер") || str4.equals("од")
+                    || str4.equals("ын")) {
                 word = word + "ный";
             } else if (str4.equals("ур")) {
                 word = word + "иный";

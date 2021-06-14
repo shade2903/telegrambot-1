@@ -12,6 +12,7 @@ import org.telegram.telegrambots.meta.api.objects.Message;
 import org.telegram.telegrambots.meta.api.objects.Update;
 import org.telegram.telegrambots.meta.exceptions.TelegramApiException;
 
+import java.nio.charset.StandardCharsets;
 import java.util.Dictionary;
 import java.util.Hashtable;
 
@@ -47,6 +48,7 @@ public class TelegramBot extends TelegramLongPollingBot {
             //делаем поступающее сообщение стрингой, и убираем в начале и конце пробелы и переводим в нижний регистр и убираем двойные пробелы
             String stroka = String.valueOf(message.getText().trim().toLowerCase().replaceAll("[\\s]{2,}", " "));
             String[] words = stroka.split(" ");
+
             if (words.length == 1) {
                 if (message.getText().equalsIgnoreCase("дошик")) {
                     sendMessage("Таймер активирован", chatId);
@@ -64,6 +66,7 @@ public class TelegramBot extends TelegramLongPollingBot {
                 String firstWords = words[0];
                 String secondSymbol = words[1];
                 String trueSecondSymbol = secondSymbol.replaceAll("[^0-9.\\s]", "");
+
                 if (firstWords.equalsIgnoreCase("таймер")) {
                     long userTimer = Long.parseLong(trueSecondSymbol);
                     if (words.length == 2 || words.length == 3 && words[2].equals("сек") ||
@@ -110,6 +113,7 @@ public class TelegramBot extends TelegramLongPollingBot {
                             finEda.getAnswer() + " " + fineda.trim() + " " + posEda.getAnswer(), chatId);
 
                 }
+
             }
         }
     }
