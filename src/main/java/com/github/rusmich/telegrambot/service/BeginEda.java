@@ -13,6 +13,8 @@ public class BeginEda {
             "Жареный",
             "Постный",
             "Вареный",
+            "Запеченый",
+            "Тушеный",
             "Взбитый в блендере",
             "Вкрутую свареный");
     private int i = value.nextInt(list.size());

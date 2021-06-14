@@ -5,7 +5,7 @@ public class AdjectiveConvertTest {
 
     public static void main(String[] args)
     {
-        String word = "соль";
+        String word = "";
 
         System.out.println(AdjectiveConvert.stem(word));
     }

@@ -102,7 +102,7 @@ public class TelegramBot extends TelegramLongPollingBot {
 
 
                     String finStrEda = FinNewEda;
-                    sendMessage("Из этих ингридиентов ты можешь приготовить замечательный: " +
+                    sendMessage("Из этих ингредиентов ты можешь приготовить замечательный: " +
                             finEda.getAnswer() + " " + finStrEda.trim() + " " + posEda.getAnswer(), chatId);
 
                 }
