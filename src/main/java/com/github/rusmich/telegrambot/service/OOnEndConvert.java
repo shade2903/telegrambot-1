@@ -74,7 +74,7 @@ public class OOnEndConvert {
                     || str4.equals("ар") || str4.equals("ов") || str4.equals("кт") || str4.equals("ос") || str4.equals("яж") || str4.equals("ав")
                     || str4.equals("нт") || str4.equals("ад") || str4.equals("ус") || str4.equals("уз") || str4.equals("уш") && !word.equals("груш")
                     || str4.equals("жа") || str4.equals("на") || str4.equals("иа") || str4.equals("ын") || word.equals("вин") || word.equals("витамин")
-                    || str4.equals("еб") || str4.equals("ят") || str4.equals("ла") || str4.equals("рт")) {
+                    || str4.equals("еб") || str4.equals("ят") || str4.equals("ла") || str4.equals("рт") || str4.equals("ма")) {
                 word = word + "но";
             } else if (word.equals("говядин")) {
                 word = "говяже";
@@ -85,7 +85,7 @@ public class OOnEndConvert {
                     || str4.equals("ас") || str4.equals("ск") || str4.equals("гл") || str4.equals("от") || str4.equals("ер")
                     || str4.equals("цк") || str4.equals("их") || str4.equals("ев") || str4.equals("йк") || str4.equals("тв")
                     || str4.equals("рг") || str4.equals("ес") || str4.equals("вн") || str4.equals("чн") || str4.equals("яв")
-                    ) {
+                    || str4.equals("вр")) {
                 word = word + "о";
             } else if (str4.equals("нк") && !word.equals("манк") || str4.equals("вк") || str4.equals("шк")) {
                 word = removeLastCharOne(word);

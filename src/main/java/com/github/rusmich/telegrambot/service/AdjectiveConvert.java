@@ -137,7 +137,7 @@ public class AdjectiveConvert {
                     || str4.equals("ад") || str4.equals("гл") || str4.equals("от") || str4.equals("рт")
                     || str4.equals("пш") || str4.equals("об") && !word.equals("звероб") || word.equals("гранат")
                     || str4.equals("ис") || str4.equals("ех") || str4.equals("кт") || str4.equals("ка")
-                    || str4.equals("сл") && !word.equals("черносл")) {
+                    || str4.equals("вр") || str4.equals("йк") || str4.equals("сл") && !word.equals("черносл")) {
                 word = word + "овый";
             } else if (str4.equals("га")) {
                 word = removeLastCharOne(word);
@@ -158,7 +158,7 @@ public class AdjectiveConvert {
             } else if (str4.equals("оф")) {
                 word = word + "ейный";
             } else if (str4.equals("ра") || str4.equals("жа") || str4.equals("на")
-                    || str4.equals("иа") || str4.equals("ла") ) {
+                    || str4.equals("иа") || str4.equals("ла") || str4.equals("ма")) {
                 word = word + "новый";
             } else if (str4.equals("ав")) {
                 word = word + "ановый";
