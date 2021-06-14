@@ -56,7 +56,7 @@ public class TelegramBot extends TelegramLongPollingBot {
             }
             String userName = message.getFrom().getUserName();
             //делаем поступающее сообщение стрингой, и убираем в начале и конце пробелы и переводим в нижний регистр и убираем двойные пробелы
-            String stroka = String.valueOf(message.getText().trim().toLowerCase().replaceAll("[\\s]{2,}", " "));
+            String stroka = message.getText().trim().toLowerCase().replace("-", " ").replaceAll("[\\s]{2,}", " ");
             String[] words = stroka.split(" ");
 
             if (words.length == 1) {
