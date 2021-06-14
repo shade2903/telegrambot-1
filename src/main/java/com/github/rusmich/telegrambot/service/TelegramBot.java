@@ -1,6 +1,8 @@
 package com.github.rusmich.telegrambot.service;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.github.rusmich.telegrambot.buttons.ButtonHelpTextInfo;
+import com.github.rusmich.telegrambot.buttons.InlineButtons;
 import com.github.rusmich.telegrambot.buttons.ReplyButtons;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -11,6 +13,7 @@ import org.telegram.telegrambots.meta.api.methods.send.SendLocation;
 import org.telegram.telegrambots.meta.api.methods.send.SendMessage;
 import org.telegram.telegrambots.meta.api.objects.Message;
 import org.telegram.telegrambots.meta.api.objects.Update;
+import org.telegram.telegrambots.meta.api.objects.replykeyboard.InlineKeyboardMarkup;
 import org.telegram.telegrambots.meta.api.objects.replykeyboard.ReplyKeyboardMarkup;
 import org.telegram.telegrambots.meta.exceptions.TelegramApiException;
 
@@ -36,6 +39,7 @@ public class TelegramBot extends TelegramLongPollingBot {
 
 
     ReplyButtons replyButtons = new ReplyButtons();
+    InlineButtons inlineButtons = new InlineButtons();
 
     @Override
     //Определить какое поведение нужно совершить когда бот получает сообщение
@@ -43,17 +47,22 @@ public class TelegramBot extends TelegramLongPollingBot {
         new Thread(() -> {
             executeUpdate(update);
         }).start();
+        executeButtonsUpdate(update);
 
         coinRandom(update);
     }
 
     public void executeUpdate(Update update) {
+        if(update.hasCallbackQuery()){
+            if(update.getCallbackQuery().getData().equals("callBack_1")){
+                Long chatIdFromCallBack = update.getCallbackQuery().getFrom().getId().longValue();
+               sendMessage(ButtonHelpTextInfo.text,chatIdFromCallBack);
+            }
+        }
         if (update != null) {
             Message message = update.getMessage();
             Long chatId = message.getChatId();
-            if(message.getText().equals("/start")){  //вызов кнопок при первом запуске бота или команде /start
-                sendButtonsWithMessage(replyButtons.keyboardMarkup(),chatId,"Приветствуем вас");
-            }
+
             String userName = message.getFrom().getUserName();
             //делаем поступающее сообщение стрингой, и убираем в начале и конце пробелы и переводим в нижний регистр и убираем двойные пробелы
             String stroka = message.getText().trim().toLowerCase().replace("-", " ").replaceAll("[\\s]{2,}", " ");
@@ -158,6 +167,17 @@ public class TelegramBot extends TelegramLongPollingBot {
         }
 
     }
+    public void executeButtonsUpdate(Update update) {
+        if (update != null) {
+            Message message = update.getMessage();
+            Long chatId = message.getChatId();
+            if (message.getText().equals("/start")) {  //вызов кнопок при первом запуске бота или команде /start
+                sendButtonsWithMessage(replyButtons.keyboardMarkup(), chatId, "Приветствуем вас");
+                sendInlineButtonsWithMessage(inlineButtons.keyboardMarkup(), chatId, "Hello");
+            }
+        }
+
+    }
     public synchronized void sendButtonsWithMessage(ReplyKeyboardMarkup replyKeyboardMarkup,Long chatId, String text){ //метод вызова кнопок
 SendMessage sendMessage = new SendMessage();
 sendMessage.setChatId(chatId);
@@ -170,6 +190,19 @@ sendMessage.setReplyMarkup(replyKeyboardMarkup);
         }
 
     }
+    public synchronized void sendInlineButtonsWithMessage(InlineKeyboardMarkup inlineKeyboardMarkup, Long chatId, String text){ //метод вызова кнопок
+        SendMessage sendMessage = new SendMessage();
+        sendMessage.setChatId(chatId);
+        sendMessage.setText(text);
+        sendMessage.setReplyMarkup(inlineKeyboardMarkup);
+        try {
+            execute(sendMessage);
+        } catch (TelegramApiException e) {
+            System.out.println("Exception:" + e.toString());
+        }
+
+    }
+
 
 
     @Override
