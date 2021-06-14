@@ -90,7 +90,7 @@ public class TelegramBot extends TelegramLongPollingBot {
                             newEda += clearwords + " ";
                         }
                     }
-                    newEda = newEda.replaceAll("[,.]", "");
+                    newEda = newEda.replaceAll("[,.?!]", "");
                     String[] finalEda = newEda.split(" ");
                     for (int i = 0; i < finalEda.length; i++) {
                         if (i % 2 == 0 && i != finalEda.length - 1) {

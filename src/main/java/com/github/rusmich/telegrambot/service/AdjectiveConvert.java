@@ -74,9 +74,9 @@ public class AdjectiveConvert {
             if (str4.equals("йц") || str4.equals("ик") || str4.equals("иц") && !word.equals("куриц")) {
                 word = removeLastCharTwo(word);
                 word = word + "ичный";
-            } else if (str4.equals("ов") && !word.equals("лавров") && !word.equals("овсянк")
+            } else if (str4.equals("ов") && !word.equals("лавров") && !word.equals("овсянк") || str4.equals("еб")
                     && !word.equals("оливков") || str4.equals("он") && !word.equals("дайкон") || str4.equals("яж") ||
-                    str4.equals("оп") || word.equals("капуст") || word.equals("виноград")
+                    str4.equals("оп") || word.equals("капуст") || word.equals("виноград") || str4.equals("вн")
                     || word.equals("витамин")) {
                 word = word + "ный";
             } else if (word.equals("картошк") || word.equals("картофел") || word.equals("картох") || word.equals("потат") || word.equals("бульб")) {
