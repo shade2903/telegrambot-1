@@ -74,7 +74,8 @@ public class OOnEndConvert {
                     || str4.equals("ар") || str4.equals("ов") || str4.equals("кт") || str4.equals("ос") || str4.equals("яж") || str4.equals("ав")
                     || str4.equals("нт") || str4.equals("ад") || str4.equals("ус") || str4.equals("уз") || str4.equals("уш") && !word.equals("груш")
                     || str4.equals("жа") || str4.equals("на") || str4.equals("иа") || str4.equals("ын") || word.equals("вин") || word.equals("витамин")
-                    || str4.equals("еб") || str4.equals("ят") || str4.equals("ла") || str4.equals("рт") || str4.equals("ма")) {
+                    || str4.equals("еб") || str4.equals("ят") || str4.equals("ла") || str4.equals("рт") || str4.equals("ма") || str4.equals("ба")
+                    || str4.equals("рс")) {
                 word = word + "но";
             } else if (word.equals("говядин")) {
                 word = "говяже";
@@ -147,7 +148,7 @@ public class OOnEndConvert {
                 word = word + "ло";
             } else if (str4.equals("ум")) {
                 word = word + "ино";
-            } else if (str4.equals("ча")) {
+            } else if (str4.equals("ча") || str4.equals("ва")) {
                 word = word + "йно";
             } else if (str4.equals("оф")) {
                 word = word + "ейно";

@@ -1,5 +1,6 @@
 package com.github.rusmich.telegrambot.service;
 //класс который отвечает за преобразование в прилагательное
+
 import java.util.regex.Pattern;
 import java.util.regex.Matcher;
 
@@ -77,7 +78,7 @@ public class AdjectiveConvert {
             } else if (str4.equals("ов") && !word.equals("лавров") && !word.equals("овсянк") || str4.equals("еб")
                     && !word.equals("оливков") || str4.equals("он") && !word.equals("дайкон") || str4.equals("яж") ||
                     str4.equals("оп") || word.equals("капуст") || word.equals("виноград") || str4.equals("вн")
-                    || word.equals("витамин") || str4.equals("ят")) {
+                    || str4.equals("рс") || word.equals("витамин") || str4.equals("ят")) {
                 word = word + "ный";
             } else if (word.equals("картошк") || word.equals("картофел") || word.equals("картох") || word.equals("потат") || word.equals("бульб")) {
                 word = "картофельный";
@@ -151,13 +152,13 @@ public class AdjectiveConvert {
                 word = word + "ой";
             } else if (word.equals("спец")) {
                 word = "со специями";
-            } else if (str4.equals("ча")) {
+            } else if (str4.equals("ча") || str4.equals("ва")) {
                 word = word + "йный";
-            }else if (word.equals("звероб")) {
+            } else if (word.equals("звероб")) {
                 word = word + "ойный";
             } else if (str4.equals("оф")) {
                 word = word + "ейный";
-            } else if (str4.equals("ра") || str4.equals("жа") || str4.equals("на")
+            } else if (str4.equals("ра") || str4.equals("жа") || str4.equals("на") || str4.equals("ба")
                     || str4.equals("иа") || str4.equals("ла") || str4.equals("ма")) {
                 word = word + "новый";
             } else if (str4.equals("ав")) {
